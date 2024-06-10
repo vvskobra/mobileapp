@@ -1,0 +1,583 @@
+ScreenManager:
+    LoginScreen:
+    RegisterScreen:
+    MenuScreen:
+    TestSelectionScreen:
+    QuestionScreen:
+    ProgressScreen:
+    ProfileScreen:
+    LessonsScreen:
+    LessonDetailScreen:
+
+<LoginScreen>:
+    name: 'login'
+    FloatLayout:
+        Image:
+            source: 'background.jpg'
+            allow_stretch: True
+            keep_ratio: False
+            size_hint: 1, 1
+            pos_hint: {'center_x': 0.5, 'center_y': 0.5}
+        BoxLayout:
+            orientation: 'vertical'
+            padding: dp(40)
+            spacing: dp(20)
+            size_hint: None, None
+            size: dp(300), dp(400)
+            pos_hint: {'center_x': 0.5, 'center_y': 0.5}
+            canvas.before:
+                Color:
+                    rgba: (0.1, 0.1, 0.1, 0.8) if app.theme_cls.theme_style == "Dark" else (1, 1, 1, 0.8)
+                RoundedRectangle:
+                    size: self.size
+                    pos: self.pos
+                    radius: [20,]
+            MDLabel:
+                text: "Вітаю!"
+                halign: 'center'
+                theme_text_color: "Primary"
+                font_style: "H3"
+            MDTextField:
+                id: username
+                hint_text: "Логін"
+                icon_right: "account"
+                size_hint_y: None
+                height: dp(50)
+            MDTextField:
+                id: password
+                hint_text: "Пароль"
+                icon_right: "key"
+                password: True
+                size_hint_y: None
+                height: dp(50)
+            MDRaisedButton:
+                text: "Вхід"
+                pos_hint: {"center_x": 0.5}
+                size_hint_y: None
+                height: dp(50)
+                on_release: app.validate_login()
+            MDRaisedButton:
+                text: "Реєстрація"
+                pos_hint: {"center_x": 0.5}
+                size_hint_y: None
+                height: dp(50)
+                on_release: app.go_to_register()
+
+<RegisterScreen>:
+    name: 'register'
+    FloatLayout:
+        Image:
+            source: 'background.jpg'
+            allow_stretch: True
+            keep_ratio: False
+            size_hint: 1, 1
+            pos_hint: {'center_x': 0.5, 'center_y': 0.5}
+        BoxLayout:
+            orientation: 'vertical'
+            padding: dp(40)
+            spacing: dp(20)
+            size_hint: None, None
+            size: dp(300), dp(400)
+            pos_hint: {'center_x': 0.5, 'center_y': 0.5}
+            canvas.before:
+                Color:
+                    rgba: (0.1, 0.1, 0.1, 0.8) if app.theme_cls.theme_style == "Dark" else (1, 1, 1, 0.8)
+                RoundedRectangle:
+                    size: self.size
+                    pos: self.pos
+                    radius: [20,]
+            MDLabel:
+                text: "Реєстрація"
+                halign: 'center'
+                theme_text_color: "Primary"
+                font_style: "H3"
+            MDTextField:
+                id: reg_username
+                hint_text: "Логін"
+                icon_right: "account"
+                size_hint_y: None
+                height: dp(50)
+            MDTextField:
+                id: reg_password
+                hint_text: "Пароль"
+                icon_right: "key"
+                password: True
+                size_hint_y: None
+                height: dp(50)
+            MDRaisedButton:
+                text: "Зареєструватися"
+                pos_hint: {"center_x": 0.5}
+                size_hint_y: None
+                height: dp(50)
+                on_release: app.register_user()
+            MDRaisedButton:
+                text: "Назад"
+                pos_hint: {"center_x": 0.5}
+                size_hint_y: None
+                height: dp(50)
+                on_release: app.go_to_login()
+
+<MenuScreen>:
+    name: 'menu'
+    FloatLayout:
+        Image:
+            source: 'background.jpg'
+            allow_stretch: True
+            keep_ratio: False
+            size_hint: 1, 1
+            pos_hint: {'center_x': 0.5, 'center_y': 0.5}
+        BoxLayout:
+            orientation: 'vertical'
+            padding: dp(40)
+            spacing: dp(20)
+            size_hint: None, None
+            size: dp(300), dp(400)
+            pos_hint: {'center_x': 0.5, 'center_y': 0.5}
+            canvas.before:
+                Color:
+                    rgba: (0.1, 0.1, 0.1, 0.8) if app.theme_cls.theme_style == "Dark" else (1, 1, 1, 0.8)
+                RoundedRectangle:
+                    size: self.size
+                    pos: self.pos
+                    radius: [20,]
+            MDLabel:
+                text: "Головне меню"
+                halign: 'center'
+                theme_text_color: "Primary"
+                font_style: "H3"
+            MDRaisedButton:
+                text: "Модулі"
+                pos_hint: {"center_x": 0.5}
+                size_hint_y: None
+                height: dp(50)
+                on_release: app.go_to_lessons()
+            MDRaisedButton:
+                text: "Обрати тест"
+                pos_hint: {"center_x": 0.5}
+                size_hint_y: None
+                height: dp(50)
+                on_release: app.go_to_test_selection()
+            MDRaisedButton:
+                text: "Змінити тему"
+                pos_hint: {"center_x": 0.5}
+                size_hint_y: None
+                height: dp(50)
+                on_release: app.toggle_theme()
+            MDRaisedButton:
+                text: "Профіль"
+                pos_hint: {"center_x": 0.5}
+                size_hint_y: None
+                height: dp(50)
+                on_release: app.show_profile()
+
+<LessonsScreen>:
+    name: 'lessons'
+    FloatLayout:
+        Image:
+            source: 'background.jpg'
+            allow_stretch: True
+            keep_ratio: False
+            size_hint: 1, 1
+            pos_hint: {'center_x': 0.5, 'center_y': 0.5}
+        ScrollView:
+            BoxLayout:
+                orientation: 'vertical'
+                padding: dp(20)
+                spacing: dp(20)
+                size_hint_y: None
+                height: self.minimum_height
+                pos_hint: {'center_x': 0.5, 'center_y': 0.5}
+                canvas.before:
+                    Color:
+                        rgba: (0.1, 0.1, 0.1, 0.8) if app.theme_cls.theme_style == "Dark" else (1, 1, 1, 0.8)
+                    RoundedRectangle:
+                        size: self.size
+                        pos: self.pos
+                        radius: [20,]
+                MDLabel:
+                    text: "Модулі"
+                    halign: 'center'
+                    theme_text_color: "Primary"
+                    font_style: "H3"
+                    size_hint_y: None
+                    height: dp(40)
+                MDList:
+                    id: lessons_list
+                MDRaisedButton:
+                    text: "Назад"
+                    pos_hint: {"center_x": 0.5}
+                    size_hint_y: None
+                    height: dp(50)
+                    on_release: app.go_to_menu()
+
+<TestSelectionScreen>:
+    name: 'test_selection'
+    FloatLayout:
+        Image:
+            source: 'background.jpg'
+            allow_stretch: True
+            keep_ratio: False
+            size_hint: 1, 1
+            pos_hint: {'center_x': 0.5, 'center_y': 0.5}
+        BoxLayout:
+            orientation: 'vertical'
+            padding: dp(40)
+            spacing: dp(20)
+            size_hint: None, None
+            size: dp(300), dp(400)
+            pos_hint: {'center_x': 0.5, 'center_y': 0.5}
+            canvas.before:
+                Color:
+                    rgba: (0.1, 0.1, 0.1, 0.8) if app.theme_cls.theme_style == "Dark" else (1, 1, 1, 0.8)
+                RoundedRectangle:
+                    size: self.size
+                    pos: self.pos
+                    radius: [20,]
+            MDLabel:
+                text: "Оберіть тему теста"
+                halign: 'center'
+                theme_text_color: "Primary"
+                font_style: "H3"
+            ScrollView:
+                BoxLayout:
+                    orientation: 'vertical'
+                    size_hint_y: None
+                    height: self.minimum_height
+                    spacing: dp(10)
+                    MDRaisedButton:
+                        text: "Податки та пільги"
+                        pos_hint: {"center_x": 0.5}
+                        size_hint_y: None
+                        height: dp(50)
+                        on_release: app.start_quiz('ukraine_history_1')
+                    MDRaisedButton:
+                        text: "Витрати та заощадження"
+                        pos_hint: {"center_x": 0.5}
+                        size_hint_y: None
+                        height: dp(50)
+                        on_release: app.start_quiz('ukraine_history_2')
+                    MDRaisedButton:
+                        text: "Кредитування"
+                        pos_hint: {"center_x": 0.5}
+                        size_hint_y: None
+                        height: dp(50)
+                        on_release: app.start_quiz('ukraine_history_3')
+                    MDRaisedButton:
+                        text: "Інвестування"
+                        pos_hint: {"center_x": 0.5}
+                        size_hint_y: None
+                        height: dp(50)
+                        on_release: app.start_quiz('ukraine_history_4')
+                    MDRaisedButton:
+                        text: "Види страхування"
+                        pos_hint: {"center_x": 0.5}
+                        size_hint_y: None
+                        height: dp(50)
+                        on_release: app.start_quiz('ukraine_history_5')
+                    MDRaisedButton:
+                        text: "Загальний тест для перевірки знань"
+                        pos_hint: {"center_x": 0.5}
+                        size_hint_y: None
+                        height: dp(50)
+                        on_release: app.start_quiz('general_knowledge')
+
+<QuestionScreen>:
+    name: 'question'
+    FloatLayout:
+        Image:
+            source: 'background.jpg'
+            allow_stretch: True
+            keep_ratio: False
+            size_hint: 1, 1
+            pos_hint: {'center_x': 0.5, 'center_y': 0.5}
+        BoxLayout:
+            orientation: 'vertical'
+            padding: dp(40)
+            spacing: dp(20)
+            size_hint: None, None
+            size: dp(300), dp(400)
+            pos_hint: {'center_x': 0.5, 'center_y': 0.5}
+            canvas.before:
+                Color:
+                    rgba: (0.1, 0.1, 0.1, 0.8) if app.theme_cls.theme_style == "Dark" else (1, 1, 1, 0.8)
+                RoundedRectangle:
+                    size: self.size
+                    pos: self.pos
+                    radius: [20,]
+            MDLabel:
+                id: question_label
+                text: ""
+                halign: 'center'
+                theme_text_color: "Primary"
+                font_style: "H5"
+            ScrollView:
+                MDBoxLayout:
+                    id: answers_layout
+                    orientation: 'vertical'
+                    spacing: dp(10)
+                    size_hint_y: None
+                    height: self.minimum_height
+
+<ProgressScreen>:
+    name: 'progress'
+    FloatLayout:
+        Image:
+            source: 'background.jpg'
+            allow_stretch: True
+            keep_ratio: False
+            size_hint: 1, 1
+            pos_hint: {'center_x': 0.5, 'center_y': 0.5}
+        ScrollView:
+            BoxLayout:
+                orientation: 'vertical'
+                padding: dp(20)
+                spacing: dp(20)
+                size_hint_y: None
+                height: self.minimum_height
+                pos_hint: {'center_x': 0.5, 'center_y': 0.5}
+                canvas.before:
+                    Color:
+                        rgba: (0.1, 0.1, 0.1, 0.8) if app.theme_cls.theme_style == "Dark" else (1, 1, 1, 0.8)
+                    RoundedRectangle:
+                        size: self.size
+                        pos: self.pos
+                        radius: [20,]
+                MDLabel:
+                    text: "Прогресс обучения"
+                    halign: 'center'
+                    theme_text_color: "Primary"
+                    font_style: "H3"
+                    size_hint_y: None
+                    height: dp(40)
+                MDList:
+                    id: progress_list
+                MDRaisedButton:
+                    text: "Назад"
+                    pos_hint: {"center_x": 0.5}
+                    size_hint_y: None
+                    height: dp(50)
+                    on_release: app.go_to_menu()
+
+<ProfileScreen>:
+    name: 'profile'
+    FloatLayout:
+        Image:
+            source: 'background.jpg'
+            allow_stretch: True
+            keep_ratio: False
+            size_hint: 1, 1
+            pos_hint: {'center_x': 0.5, 'center_y': 0.5}
+        ScrollView:
+            BoxLayout:
+                orientation: 'vertical'
+                padding: dp(20)
+                spacing: dp(20)
+                size_hint_y: None
+                height: self.minimum_height
+                pos_hint: {'center_x': 0.5, 'center_y': 0.5}
+                canvas.before:
+                    Color:
+                        rgba: (0.1, 0.1, 0.1, 0.8) if app.theme_cls.theme_style == "Dark" else (1, 1, 1, 0.8)
+                    RoundedRectangle:
+                        size: self.size
+                        pos: self.pos
+                        radius: [20,]
+                MDLabel:
+                    text: "Профіль"
+                    halign: 'center'
+                    theme_text_color: "Primary"
+                    font_style: "H3"
+                    size_hint_y: None
+                    height: dp(40)
+                MDBoxLayout:
+                    orientation: 'horizontal'
+                    size_hint_y: None
+                    height: dp(40)
+                    MDLabel:
+                        text: "Податки та пільги"
+                        halign: 'left'
+                    MDProgressBar:
+                        id: ukraine_history_1_progress
+                        value: app.calculate_progress('ukraine_history_1')
+                        size_hint_y: None
+                        height: dp(20)
+                    MDLabel:
+                        id: ukraine_history_1_percentage
+                        text: "{}%".format(app.calculate_progress('ukraine_history_1'))
+                        halign: 'right'
+                MDBoxLayout:
+                    orientation: 'horizontal'
+                    size_hint_y: None
+                    height: dp(40)
+                    MDLabel:
+                        text: "Витрати та заощадження"
+                        halign: 'left'
+                    MDProgressBar:
+                        id: ukraine_history_2_progress
+                        value: app.calculate_progress('ukraine_history_2')
+                        size_hint_y: None
+                        height: dp(20)
+                    MDLabel:
+                        id: ukraine_history_2_percentage
+                        text: "{}%".format(app.calculate_progress('ukraine_history_2'))
+                        halign: 'right'
+                MDBoxLayout:
+                    orientation: 'horizontal'
+                    size_hint_y: None
+                    height: dp(40)
+                    MDLabel:
+                        text: "Кредитування"
+                        halign: 'left'
+                    MDProgressBar:
+                        id: ukraine_history_3_progress
+                        value: app.calculate_progress('ukraine_history_3')
+                        size_hint_y: None
+                        height: dp(20)
+                    MDLabel:
+                        id: ukraine_history_3_percentage
+                        text: "{}%".format(app.calculate_progress('ukraine_history_3'))
+                        halign: 'right'
+                MDBoxLayout:
+                    orientation: 'horizontal'
+                    size_hint_y: None
+                    height: dp(40)
+                    MDLabel:
+                        text: "Інвестування"
+                        halign: 'left'
+                    MDProgressBar:
+                        id: ukraine_history_4_progress
+                        value: app.calculate_progress('ukraine_history_4')
+                        size_hint_y: None
+                        height: dp(20)
+                    MDLabel:
+                        id: ukraine_history_4_percentage
+                        text: "{}%".format(app.calculate_progress('ukraine_history_4'))
+                        halign: 'right'
+                MDBoxLayout:
+                    orientation: 'horizontal'
+                    size_hint_y: None
+                    height: dp(40)
+                    MDLabel:
+                        text: "Види страхування"
+                        halign: 'left'
+                    MDProgressBar:
+                        id: ukraine_history_5_progress
+                        value: app.calculate_progress('ukraine_history_5')
+                        size_hint_y: None
+                        height: dp(20)
+                    MDLabel:
+                        id: ukraine_history_5_percentage
+                        text: "{}%".format(app.calculate_progress('ukraine_history_5'))
+                        halign: 'right'
+                MDBoxLayout:
+                    orientation: 'horizontal'
+                    size_hint_y: None
+                    height: dp(40)
+                    MDLabel:
+                        text: "История Украины 6"
+                        halign: 'left'
+                    MDProgressBar:
+                        id: ukraine_history_6_progress
+                        value: app.calculate_progress('ukraine_history_6')
+                        size_hint_y: None
+                        height: dp(20)
+                    MDLabel:
+                        id: ukraine_history_6_percentage
+                        text: "{}%".format(app.calculate_progress('ukraine_history_6'))
+                        halign: 'right'
+                MDBoxLayout:
+                    orientation: 'horizontal'
+                    size_hint_y: None
+                    height: dp(40)
+                    MDLabel:
+                        text: "История Украины 7"
+                        halign: 'left'
+                    MDProgressBar:
+                        id: ukraine_history_7_progress
+                        value: app.calculate_progress('ukraine_history_7')
+                        size_hint_y: None
+                        height: dp(20)
+                    MDLabel:
+                        id: ukraine_history_7_percentage
+                        text: "{}%".format(app.calculate_progress('ukraine_history_7'))
+                        halign: 'right'
+                MDBoxLayout:
+                    orientation: 'horizontal'
+                    size_hint_y: None
+                    height: dp(40)
+                    MDLabel:
+                        text: "История Украины 8"
+                        halign: 'left'
+                    MDProgressBar:
+                        id: ukraine_history_8_progress
+                        value: app.calculate_progress('ukraine_history_8')
+                        size_hint_y: None
+                        height: dp(20)
+                    MDLabel:
+                        id: ukraine_history_8_percentage
+                        text: "{}%".format(app.calculate_progress('ukraine_history_8'))
+                        halign: 'right'
+                MDBoxLayout:
+                    orientation: 'horizontal'
+                    size_hint_y: None
+                    height: dp(40)
+                    MDLabel:
+                        text: "Загальний тест для перевірки знань"
+                        halign: 'left'
+                    MDProgressBar:
+                        id: general_knowledge_progress
+                        value: app.calculate_progress('general_knowledge')
+                        size_hint_y: None
+                        height: dp(20)
+                    MDLabel:
+                        id: general_knowledge_percentage
+                        text: "{}%".format(app.calculate_progress('general_knowledge'))
+                        halign: 'right'
+                MDRaisedButton:
+                    text: "Назад"
+                    pos_hint: {"center_x": 0.5}
+                    size_hint_y: None
+                    height: dp(50)
+                    on_release: app.go_to_menu()
+
+<LessonDetailScreen>:
+    name: 'lesson_detail'
+    FloatLayout:
+        Image:
+            source: 'background.jpg'
+            allow_stretch: True
+            keep_ratio: False
+            size_hint: 1, 1
+            pos_hint: {'center_x': 0.5, 'center_y': 0.5}
+        BoxLayout:
+            orientation: 'vertical'
+            padding: dp(40)
+            spacing: dp(20)
+            size_hint: None, None
+            size: dp(300), dp(400)
+            pos_hint: {'center_x': 0.5, 'center_y': 0.5}
+            canvas.before:
+                Color:
+                    rgba: (0.1, 0.1, 0.1, 0.8) if app.theme_cls.theme_style == "Dark" else (1, 1, 1, 0.8)
+                RoundedRectangle:
+                    size: self.size
+                    pos: self.pos
+                    radius: [20,]
+            MDLabel:
+                id: lesson_detail_title
+                text: ""
+                halign: 'center'
+                theme_text_color: "Primary"
+                font_style: "H5"
+            MDLabel:
+                id: lesson_detail_content
+                text: ""
+                halign: 'center'
+                theme_text_color: "Primary"
+                font_style: "Body1"
+            MDRaisedButton:
+                text: "Назад"
+                pos_hint: {"center_x": 0.5}
+                size_hint_y: None
+                height: dp(50)
+                on_release: app.go_to_lessons()
